@@ -1,0 +1,14 @@
+[project]
+name = "herta-launcher-next"
+version = "0.1.0"
+description = "Automation program for games"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "textual>=8.2.2",
+]
+
+[dependency-groups]
+dev = [
+    "textual-dev>=1.8.0",
+]

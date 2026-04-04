@@ -1,0 +1,42 @@
+/* 应用头部 */
+Header {
+    margin-bottom: 1;
+    background: transparent;
+    color: #ff9dc9;
+}
+
+/* 应用标题 */
+#app-title {
+    text-align: center;
+    width: 100%;
+    color: #ff9dc9;
+}
+
+/* 通用应用容器 */
+.app-container {
+    width: 100%;
+    overflow: auto;
+    border: round #ff9def;
+    border-title-color: #ffc8e1;
+    border-title-style: bold;
+}
+
+/* 应用内容容器 */
+#app-content-container {
+    padding: 0 1;
+}
+
+/* 应用日志 */
+#app-log-container {
+    padding: 2 4;
+}
+
+/* 按钮 */
+Button {
+    border: round #ff9dc9;
+    background: transparent;
+}
+
+Button:hover {
+    background: #7e4f64;
+}
