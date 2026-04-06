@@ -5,6 +5,8 @@ description = "Automation program for games"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "loguru>=0.7.3",
+    "orjson>=3.11.8",
     "textual>=8.2.2",
 ]
 

@@ -1,20 +1,21 @@
 """自定义组件"""
 
-from textual.containers import Horizontal, Vertical
-from textual.widgets import Label
+from textual.containers import Horizontal
 
 
 class CustomFooter(Horizontal):
-    """自定义应用底部"""
+    """自定义应用底部组件"""
 
     DEFAULT_CSS = """
     CustomFooter {
         dock: bottom;
-        height: 3;
+        layout: grid;
+        grid-size: 4;
+        height: auto;
         align: center middle;
     }
     CustomFooter Label {
-        margin: 0 2;
+        margin: 0 4;
         color: #454545;
     }
     """

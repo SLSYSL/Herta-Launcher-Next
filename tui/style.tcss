@@ -1,0 +1,75 @@
+/* 应用头部 */
+Header {
+    background: transparent;
+}
+
+Header.-tall {
+    height: 1;
+}
+
+HeaderIcon {
+    display: none;
+}
+
+HeaderTitle {
+    color: #ff9dc9;
+}
+
+HeaderClock {
+    text-opacity: 100%;
+    background: transparent;
+}
+
+/* 通用应用容器 */
+.app-container {
+    width: 100%;
+    padding: 0 1;
+    overflow: auto;
+    border: round #FFC0CB;
+    border-title-color: #FFB6C1;
+    border-title-style: bold;
+}
+
+/* 应用内容容器 */
+#app-content-container {
+    padding: 0 1;
+}
+
+/* 应用日志 */
+#app-log-container {
+    border: round#ADD8E6;
+    border-title-color: #87CEEB;
+}
+
+RichLog {
+    background: transparent;
+    overflow-y: auto;
+}
+
+/* 设置标题 */
+.setting-title {
+    padding: 0 1;
+}
+
+/* 水平布局 */
+Horizontal {
+    height: auto;
+}
+
+/* 复选框、下拉选择框和输入框 */
+Checkbox, Select, Input, Button {
+    border: round #ff9dc9;
+    background: transparent;
+}
+
+Checkbox:hover, Button:hover {
+    background: #7e4f64;
+}
+
+#screenshot-path-input {
+    width: 80%;
+}
+
+#screenshot-path-save-button {
+    width: 20%;
+}
