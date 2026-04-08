@@ -35,9 +35,21 @@ HeaderClock {
     padding: 0 1;
 }
 
+MarkdownViewer {
+    background: transparent;
+}
+
+MarkdownTableOfContents {
+    display: none;
+}
+
+Markdown {
+    padding: 0;
+}
+
 /* 应用日志 */
 #app-log-container {
-    border: round#ADD8E6;
+    border: round #ADD8E6;
     border-title-color: #87CEEB;
 }
 

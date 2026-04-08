@@ -1,0 +1,6 @@
+{
+  "app": {
+    "enable_ansi_color": true,
+    "theme": "dracula"
+  }
+}

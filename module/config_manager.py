@@ -1,9 +1,9 @@
 """配置管理器"""
 
-from pathlib import Path
 from typing import Any, Dict
 import orjson
 from loguru import logger
+from module.utils import get_install_dir
 
 
 class ConfigManager:
@@ -14,16 +14,15 @@ class ConfigManager:
         "app": {
             "enable_ansi_color": False,
             "theme": "dracula",
-            "screenshot_path": "./Herta-Launcher-Next/screenshots/",
         },
     }
 
-    def __init__(self, config_path: str = "./Herta-Launcher-Next/config.json"):
+    def __init__(self):
         """初始化配置管理器
         Args:
-            config_path (str, optional): 配置文件路径 (默认值: "./Herta-Launcher-Next/config.json")
+            config_path (Path, optional): 配置文件路径
         """
-        self.config_path = Path(config_path)
+        self.config_path = get_install_dir() / "Herta-Launcher-Next-Temp" / "config.json"
         self._config: Dict[str, Any] = {}
         self.load()
 

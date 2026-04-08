@@ -3,8 +3,10 @@
 import queue
 from textual import on
 from textual.containers import ScrollableContainer, VerticalScroll, Horizontal
-from textual.widgets import Label, RichLog, Checkbox, Select, Input, Button
+from textual.widgets import Label, RichLog, Checkbox, Select
 from module.logger_manager import log_queue
+from module.utils import get_runtime_dir
+from .custom_widgets import CustomMarkdownViewer
 
 
 class HomePage(ScrollableContainer):
@@ -25,7 +27,16 @@ class HomePage(ScrollableContainer):
             container.border_title = "应用公告"
 
             # 页面内容
-            yield Label("Application Content")
+            try:
+                with open(
+                    get_runtime_dir() / "assets" / "announcement.md",
+                    "r",
+                    encoding="utf-8",
+                ) as f:
+                    content = f.read()
+                yield CustomMarkdownViewer(content)
+            except FileNotFoundError:
+                yield Label("应用公告文件不存在")
 
         # 应用日志容器
         with VerticalScroll(

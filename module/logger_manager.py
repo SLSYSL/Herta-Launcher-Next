@@ -1,12 +1,12 @@
 """日志管理器"""
 
 import queue
-from pathlib import Path
 from datetime import datetime
 from loguru import logger
+from module.utils import get_install_dir
 
 # 日志目录
-LOG_DIR = Path("./Herta-Launcher-Next/logs")
+LOG_DIR = get_install_dir() / "Herta-Launcher-Next-Temp" / "logs"
 LOG_DIR.mkdir(parents=True, exist_ok=True)
 
 # UI 消息队列（线程安全）
@@ -18,7 +18,7 @@ def ui_sink(message: str) -> None:
     log_queue.put(message)
 
 
-def setup_logger() -> None:
+def setup_logger() -> logger:
     """配置日志记录器"""
     # 移除默认的输出处理器
     logger.remove()

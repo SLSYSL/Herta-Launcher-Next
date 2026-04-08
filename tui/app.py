@@ -2,10 +2,10 @@
 
 import os
 import sys
-from pathlib import Path
 from textual.app import App, SystemCommand, ComposeResult
 from textual.widgets import TabbedContent, TabPane, Header, Label
 from module.config_manager import ConfigManager
+from module.utils import get_runtime_dir
 from .pages import HomePage, SettingsPage
 from .custom_widgets import CustomFooter
 
