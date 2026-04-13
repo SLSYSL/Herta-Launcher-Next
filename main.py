@@ -11,7 +11,14 @@ def main() -> None:
     logger.info("应用启动成功")
 
     # 运行 TUI 应用
-    TUIApp().run()
+    while True:
+        # 运行 TUI 应用
+        app = TUIApp()
+        app.run()
+
+        # 如果没有设置重启标志，退出程序
+        if not app.restart_flag:
+            break
 
 
 if __name__ == "__main__":

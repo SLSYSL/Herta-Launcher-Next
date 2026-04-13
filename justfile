@@ -11,8 +11,13 @@ install-uv:
 install:
     uv sync
 
+# 运行项目
 run:
     uv run textual run --dev main.py
+
+# 构建项目
+build:
+    uv run pyinstaller main.spec
 
 # 显示所有可用命令
 help:

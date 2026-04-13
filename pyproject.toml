@@ -12,5 +12,6 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "pyinstaller>=6.19.0",
     "textual-dev>=1.8.0",
 ]

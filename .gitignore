@@ -12,3 +12,7 @@ wheels/
 
 # Application data
 Herta-Launcher-Next-Temp/
+
+# Build output
+build/
+dist/

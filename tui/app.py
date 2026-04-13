@@ -1,14 +1,18 @@
 """Textual App"""
 
+from loguru import logger
 from textual.app import App, SystemCommand, ComposeResult
 from textual.widgets import TabbedContent, TabPane, Header, Label
-from module import ConfigManager, restart_program
+from module import ConfigManager
 from .pages import HomePage, SettingsPage
 from .custom_widgets import CustomFooter
 
 
 class TUIApp(App):
     """Textual App 主类"""
+
+    # 重启标志
+    restart_flag = False
 
     # 样式路径
     CSS_PATH = "style.tcss"
@@ -127,8 +131,11 @@ class TUIApp(App):
 
     def action_restart(self):
         """重启程序"""
+        # 设置重启标志
+        self.restart_flag = True
+
+        # 日志记录重启
+        logger.info("重启程序")
+
         # 清理终端
         self.exit()
-
-        # 重启程序
-        restart_program()

@@ -3,6 +3,7 @@
 import queue
 from datetime import datetime
 from loguru import logger
+from loguru._handler import Message
 from .utils import get_install_dir
 
 # 日志目录
@@ -13,7 +14,7 @@ LOG_DIR.mkdir(parents=True, exist_ok=True)
 log_queue = queue.Queue()
 
 
-def ui_sink(message: str) -> None:
+def ui_sink(message: Message) -> None:
     """UI日志处理器"""
     log_queue.put(message)
 
