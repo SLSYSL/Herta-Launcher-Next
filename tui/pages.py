@@ -4,8 +4,7 @@ import queue
 from textual import on
 from textual.containers import ScrollableContainer, VerticalScroll, Horizontal
 from textual.widgets import Label, RichLog, Checkbox, Select
-from module.logger_manager import log_queue
-from module.utils import get_runtime_dir
+from module import log_queue, get_runtime_dir
 from .custom_widgets import CustomMarkdownViewer
 
 
@@ -114,6 +113,12 @@ class SettingsPage(ScrollableContainer):
     @on(Select.Changed, "#theme-select")
     def on_theme_select(self, event: Select.Changed) -> None:
         """处理主题选择变化"""
+        # 防抖处理
+        current_theme = self.app.config.get("app.theme")
+        if current_theme == event.value:
+            return
+
+        # 更新应用主题
         setattr(self.app, "theme", event.value)
         self.app.config.set("app.theme", event.value)
         self.notify(f"主题已设置为: {event.value}")

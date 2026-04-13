@@ -1,11 +1,8 @@
 """Textual App"""
 
-import os
-import sys
 from textual.app import App, SystemCommand, ComposeResult
 from textual.widgets import TabbedContent, TabPane, Header, Label
-from module.config_manager import ConfigManager
-from module.utils import get_runtime_dir
+from module import ConfigManager, restart_program
 from .pages import HomePage, SettingsPage
 from .custom_widgets import CustomFooter
 
@@ -21,14 +18,15 @@ class TUIApp(App):
 
     # 按键绑定
     BINDINGS = [
-        ("h", "goto_home", "跳转到主页"),
-        ("s", "goto_settings", "跳转到设置页"),
+        ("h", "goto_page('home')", "跳转到主页"),
+        ("s", "goto_page('settings')", "跳转到设置页"),
         ("ctrl+s", "screenshot_screen", "截图当前屏幕"),
         ("ctrl+r", "restart", "重启程序"),
     ]
 
     def __init__(self):
         """初始化应用"""
+        # 初始化父类
         super().__init__()
 
         # 配置管理器
@@ -87,9 +85,7 @@ class TUIApp(App):
         yield SystemCommand(
             "截图",
             "保存当前页面截图",
-            lambda: self.set_timer(
-                0.1, self.deliver_screenshot
-            ),
+            lambda: self.set_timer(0.1, self.deliver_screenshot),
         )
 
         # 显示退出应用命令
@@ -121,24 +117,18 @@ class TUIApp(App):
             yield Label("Ctrl+R: 重启程序")
             yield Label("Ctrl+Q: 退出程序")
 
-    def action_goto_home(self):
-        """跳转到主页"""
-        tabbed = self.query_one(TabbedContent)
-        tabbed.active = "home"
+    def action_goto_page(self, page: str) -> None:
+        """跳转到指定页面"""
+        self.query_one(TabbedContent).active = page
 
-    def action_goto_settings(self):
-        """跳转到设置页"""
-        tabbed = self.query_one(TabbedContent)
-        tabbed.active = "settings"
-
-    def action_screenshot_screen(self):
+    def action_screenshot_screen(self) -> None:
         """截图当前屏幕"""
-        self.set_timer(
-            0.1, self.deliver_screenshot
-        )
+        self.set_timer(0.1, self.deliver_screenshot)
 
     def action_restart(self):
         """重启程序"""
-        sys.stdout.flush()
-        sys.stderr.flush()
-        os.execv(sys.executable, [sys.executable] + sys.argv)
+        # 清理终端
+        self.exit()
+
+        # 重启程序
+        restart_program()

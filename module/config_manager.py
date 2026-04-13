@@ -1,9 +1,10 @@
 """配置管理器"""
 
-from typing import Any, Dict
+import os
+from typing import Any, Dict, Optional
 import orjson
 from loguru import logger
-from module.utils import get_install_dir
+from .utils import get_install_dir
 
 
 class ConfigManager:
@@ -22,9 +23,24 @@ class ConfigManager:
         Args:
             config_path (Path, optional): 配置文件路径
         """
-        self.config_path = get_install_dir() / "Herta-Launcher-Next-Temp" / "config.json"
+        self.config_path = (
+            get_install_dir() / "Herta-Launcher-Next-Temp" / "config.json"
+        )
         self._config: Dict[str, Any] = {}
+        self._ensure_secure_directory()
         self.load()
+
+    def _ensure_secure_directory(self) -> None:
+        """确保配置目录有适当的权限"""
+        try:
+            config_dir = self.config_path.parent
+            config_dir.mkdir(parents=True, exist_ok=True)
+
+            # 设置适当的目录权限
+            os.chmod(config_dir, 0o700)
+        except (OSError, PermissionError) as e:
+            logger.error("无法创建安全的配置目录: {}", e)
+            raise
 
     def _merge_defaults(self) -> None:
         """递归合并默认配置，确保缺失的键被补全"""
@@ -67,13 +83,16 @@ class ConfigManager:
         except (OSError, IOError) as e:
             logger.error("保存配置失败: {}", e)
 
-    def get(self, key_path: str, default=None) -> Any:
+    def get(self, key_path: str, default: Optional[Any] = None) -> Any:
         """通过点分隔的路径获取配置值
+
         Args:
             key_path (str): 配置路径，例如 "app.theme"
             default (Any, optional): 默认值，如果路径不存在则返回。 Defaults to None.
+
         Returns:
             Any: 配置值或默认值
+
         Raises:
             ValueError: 如果路径包含空字符串或空格
         """
@@ -88,9 +107,11 @@ class ConfigManager:
 
     def set(self, key_path: str, value: Any) -> None:
         """设置配置值，自动创建中间字典，并保存文件。
+
         Args:
             key_path (str): 配置路径，例如 "app.theme"
             value (Any): 要设置的值
+
         Raises:
             ValueError: 如果路径包含空字符串或空格
         """
@@ -111,8 +132,10 @@ class ConfigManager:
     @property
     def all(self) -> Dict[str, Any] | None:
         """返回整个配置字典（只读副本）
+
         Returns:
             Dict[str, Any]: 配置字典的副本，或 None 如果配置字典为空
+
         Raises:
             ValueError: 如果配置字典为空
         """

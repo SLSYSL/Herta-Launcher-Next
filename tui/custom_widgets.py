@@ -22,7 +22,7 @@ class CustomFooter(Horizontal):
     CustomFooter {
         dock: bottom;
         layout: grid;
-        grid-size: 4;
+        grid-size: 3 2;
         height: auto;
         align: center middle;
     }

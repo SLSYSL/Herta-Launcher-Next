@@ -3,7 +3,7 @@
 import queue
 from datetime import datetime
 from loguru import logger
-from module.utils import get_install_dir
+from .utils import get_install_dir
 
 # 日志目录
 LOG_DIR = get_install_dir() / "Herta-Launcher-Next-Temp" / "logs"
